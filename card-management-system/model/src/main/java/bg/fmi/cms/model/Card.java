@@ -2,10 +2,7 @@ package bg.fmi.cms.model;
 
 import lombok.Data;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -23,6 +20,8 @@ public class Card {
     private String cvv;
     @Basic
     private LocalDate expiryDate;
+    @Basic
+    private Integer cardStatus;
 
     @OneToOne()
     private Bin bin;

@@ -1,22 +1,27 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
-
 
 group 'bg.fmi.cms'
 version '1.0-SNAPSHOT'
+sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
 }
 
-
-ext{
+ext {
     lombokVersion = '1.18.10'
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-devtools'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.2'
+    runtimeOnly 'mysql:mysql-connector-java'
     compile project(':model')
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"

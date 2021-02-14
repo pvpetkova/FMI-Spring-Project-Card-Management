@@ -9,7 +9,7 @@ repositories {
     mavenCentral()
 }
 
-ext{
+ext {
     lombokVersion = '1.18.10'
 }
 
@@ -20,6 +20,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
 
+    runtimeOnly 'mysql:mysql-connector-java'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
