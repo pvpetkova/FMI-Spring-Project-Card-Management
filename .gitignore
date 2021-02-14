@@ -3,3 +3,5 @@
 /card-management-system/gradlew.bat
 /card-management-system/.gradle/
 /.idea/
+/card-management-system/backend/build/
+/card-management-system/model/build/
