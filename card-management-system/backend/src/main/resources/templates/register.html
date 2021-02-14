@@ -22,7 +22,7 @@
 
     <div class="form-group">
         <label for="role">Role: </label>
-        <select id="role" multiple name="role" required>
+        <select id="role" multiple name="role" required th:field="${user.role}">
             <option th:each="role : ${T(bg.fmi.cms.model.constats.Role).values()}"
                     th:value="${role}" th:text="${role}"></option>
         </select>

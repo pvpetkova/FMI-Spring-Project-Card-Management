@@ -18,5 +18,6 @@ public class Bin {
     @Basic
     private String description;
     @ManyToOne()
+    @JoinColumn(name = "bin_range", referencedColumnName = "id")
     private BinRange binRange;
 }

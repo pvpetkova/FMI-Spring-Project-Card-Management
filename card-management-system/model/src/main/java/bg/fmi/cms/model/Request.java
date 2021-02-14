@@ -16,6 +16,7 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToOne
+    @JoinColumn(name = "issuer", referencedColumnName = "id")
     private User issuer;
     @Enumerated(EnumType.ORDINAL)
     private RequestType requestType;
@@ -24,5 +25,6 @@ public class Request {
     @Basic
     private String reason;
     @OneToOne
+    @JoinColumn(name = "request_subject", referencedColumnName = "id")
     private Card requestSubject;
 }

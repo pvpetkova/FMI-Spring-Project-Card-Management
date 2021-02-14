@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>CMS - Active Requests</title>
+    <style>
+        table, th, td {
+            border: 1px solid #d4d4d4;
+        }
+    </style>
 </head>
 <body>
+<h3>Requests</h3>
+
+<form th:action="@{/requests/filter}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="status">Request Status: </label>
+        <select id="status" required th:name="filterStatus">
+            <option th:each="stat : ${T(bg.fmi.cms.model.constats.RequestStatus).values()}"
+                    th:value="${stat}" th:text="${stat}"></option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit" th:disabled="${requestsList==null or requestsList.isEmpty()}">Filter
+    </button>
+</form>
+
+<div th:if="${requestsList!=null and !requestsList.isEmpty()}">
+    <table>
+        <tr>
+            <th>Request ID</th>
+            <th>Issuer ID</th>
+            <th>Request Type</th>
+            <th>Request Status</th>
+            <th>Reason</th>
+            <th>Card ID</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="req: ${requestsList}">
+            <td th:text="${req.id}"></td>
+            <td th:text="${req.issuer.id}"></td>
+            <td th:text="${req.requestType}"></td>
+            <td th:text="${req.requestStatus}"></td>
+            <td th:text="${req.reason}"></td>
+            <td th:text="${req.requestSubject.id}"></td>
+            <!--TODO: add check for role-->
+            <td>
+                <button>Change</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div th:if="${requestsList==null or requestsList.isEmpty()}">
+    <p>There are no requests in the database.</p>
+</div>
 
 </body>
 </html>

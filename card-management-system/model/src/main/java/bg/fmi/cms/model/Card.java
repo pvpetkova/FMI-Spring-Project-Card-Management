@@ -29,5 +29,6 @@ public class Card {
     private CardStatus cardStatus;
 
     @OneToOne()
+    @JoinColumn(name = "bin_id", referencedColumnName = "id")
     private Bin bin;
 }
