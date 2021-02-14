@@ -4,6 +4,11 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
+//wrapper {
+//    gradleVersion '6.3'
+//    distributionType = Wrapper.DistributionType.ALL
+//}
+
 group 'bg.fmi.cms'
 version '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -21,10 +26,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-devtools'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.2'
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.2'
     runtimeOnly 'mysql:mysql-connector-java'
     compile project(':model')
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

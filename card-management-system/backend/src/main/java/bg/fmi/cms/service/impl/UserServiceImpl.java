@@ -5,13 +5,14 @@ import bg.fmi.cms.model.constats.AccountStatus;
 import bg.fmi.cms.repo.UserRepository;
 import bg.fmi.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public Iterable<User> getAllUsers() {
@@ -35,7 +36,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void add(User user) {
-        user.setAccountStatus(AccountStatus.PENDING);
+        user.setAccountStatus(AccountStatus.SUSPENDED);
+        System.out.println(user.toString());
         userRepository.save(user);
     }
 

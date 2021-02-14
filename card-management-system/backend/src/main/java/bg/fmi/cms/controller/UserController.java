@@ -23,6 +23,7 @@ public class UserController {
 
     @PostMapping(value = "/new")
     public String sendRegisterRequest(@ModelAttribute User newUser, Model model) {
+        System.out.println(newUser.toString());
         userService.add(newUser);
         model.addAttribute("message", "Your registration request has been submitted. " +
                 "It must be reviewed and approved by an administrator before you can access the system.");

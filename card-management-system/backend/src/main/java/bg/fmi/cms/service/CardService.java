@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public interface CardService {
     void updateCardStatus(Long cardId, CardStatus status);
 
-    boolean authorize(Card card);
+    boolean authorize(Card card, String pinBlock);
 
-    void changePin(String pin);
+    void changePin(Long card, String pin);
 }

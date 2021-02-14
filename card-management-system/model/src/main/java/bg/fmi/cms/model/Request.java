@@ -4,21 +4,22 @@ import bg.fmi.cms.model.constats.RequestStatus;
 import bg.fmi.cms.model.constats.RequestType;
 import lombok.Data;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "request", schema = "cms")
 public class Request {
     @Id
+//    @SequenceGenerator(name = "seq_request_id", sequenceName = "seq_request_id",allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_request_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToOne
     private User issuer;
-    @Basic
+    @Enumerated(EnumType.ORDINAL)
     private RequestType requestType;
-    @Basic
+    @Enumerated(EnumType.ORDINAL)
     private RequestStatus requestStatus;
     @Basic
     private String reason;

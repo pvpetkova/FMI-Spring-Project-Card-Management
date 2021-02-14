@@ -4,22 +4,26 @@ import bg.fmi.cms.model.constats.KeyType;
 import bg.fmi.cms.model.constats.KeyUsage;
 import lombok.Data;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
 @Data
+@Table(name = "key", schema = "cms")
 public class Key {
     @Id
+//    @SequenceGenerator(name = "seq_key_id", sequenceName = "seq_key_id",allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_key_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Basic
     private String keyName;
     @Basic
     private String keyValue;
-    @Basic
+    @Enumerated(EnumType.ORDINAL)
     private KeyType keyType;
-    @Basic
+    @Enumerated(EnumType.ORDINAL)
     private KeyUsage keyUsage;
+    @ManyToOne
+    private Bin bin;
 }
