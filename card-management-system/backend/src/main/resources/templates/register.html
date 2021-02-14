@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<h3>Send Registration Request</h3>
+<form th:action="@{/users/new}" method="post" th:object="${user}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="username">Username: </label>
+        <input class="form-control" id="username" name="username" required th:field="${user.username}"
+               type="text">
+    </div>
 
+    <div class="form-group">
+        <label for="password">Password: </label>
+        <input class="form-control" id="password" name="password" required
+               th:field="${user.password}"
+               type="password">
+    </div>
+
+    <div class="form-group">
+        <label for="role">Role: </label>
+        <select id="role" multiple name="role" required>
+            <option th:each="role : ${T(bg.fmi.cms.model.constats.Role).values()}"
+                    th:value="${role}" th:text="${role}"></option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+
+    <p th:text="${message}"></p>
+</form>
 </body>
 </html>
