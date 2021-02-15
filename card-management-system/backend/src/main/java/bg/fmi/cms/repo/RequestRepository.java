@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface RequestRepository extends CrudRepository<Request, Long> {
-    public List<Request> findAllByRequestStatus(RequestStatus status);
+    List<Request> findAllByRequestStatus(RequestStatus status);
 }

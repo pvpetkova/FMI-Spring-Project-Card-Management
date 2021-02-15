@@ -38,3 +38,39 @@ insert into cms.`key` (id, key_name, key_value, key_type, key_usage, bin_id)
 values (5,'444444:pin', '112233445566778811223344556677881122334455667788', 0,2,2);
 
 commit;
+
+alter table bin
+    drop foreign key bin_bin_range_id_fk;
+alter table card
+    drop foreign key card_bin_id_fk;
+alter table cms.`key`
+    drop foreign key key_ibfk_1;
+alter table request
+    drop foreign key request_card_id_fk;
+alter table request
+    drop foreign key request_user_id_fk;
+alter table bin
+    modify id int auto_increment;
+alter table bin_range
+    modify id int auto_increment;
+alter table card
+    modify id int auto_increment;
+alter table cms.key
+    modify id int auto_increment;
+alter table request
+    modify id int auto_increment;
+alter table user
+    modify id int auto_increment;
+
+alter table bin
+    add constraint bin_bin_range_id_fk foreign key (bin_range) references bin_range (id);
+alter table card
+    add constraint card_bin_id_fk foreign key (bin_id) references bin (id);
+alter table cms.`key`
+    add constraint key_ibfk_1 foreign key (bin_id) references bin (id);
+alter table request
+    add constraint request_card_id_fk foreign key (request_subject) references card (id);
+alter table request
+    add constraint request_user_id_fk foreign key (issuer) references user (id);
+
+

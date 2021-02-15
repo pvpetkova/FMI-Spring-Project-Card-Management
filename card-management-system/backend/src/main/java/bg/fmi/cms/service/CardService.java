@@ -10,5 +10,7 @@ public interface CardService {
 
     boolean authorize(Card card, String pinBlock);
 
+    boolean authorize(String pan, String pinBlock);
+
     void changePin(Long card, String pin);
 }

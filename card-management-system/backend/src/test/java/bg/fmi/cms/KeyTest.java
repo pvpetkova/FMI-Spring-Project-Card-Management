@@ -2,6 +2,7 @@ package bg.fmi.cms;
 
 import bg.fmi.cms.keys.CipherUtils;
 import org.junit.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class KeyTest {
 
@@ -32,5 +33,14 @@ public class KeyTest {
         System.out.println("pinAc = " + pinAc);
         System.out.println("pinCms = " + pinCms);
         System.out.println(CipherUtils.checkPin(pinCms, pinAc, acKey, cmsKey));
+    }
+
+    @Test
+    public void testPassword() {
+        String password = "passwd";
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        System.out.println("passwordEncoder.encode(password) = " + passwordEncoder.encode(password));
+
+
     }
 }

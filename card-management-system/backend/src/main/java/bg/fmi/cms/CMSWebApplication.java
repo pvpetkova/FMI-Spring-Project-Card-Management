@@ -1,6 +1,5 @@
 package bg.fmi.cms;
 
-import bg.fmi.cms.repo.CardRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

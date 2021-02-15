@@ -13,7 +13,7 @@ public class Request {
     @Id
 //    @SequenceGenerator(name = "seq_request_id", sequenceName = "seq_request_id",allocationSize = 1)
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_request_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToOne
     @JoinColumn(name = "issuer", referencedColumnName = "id")

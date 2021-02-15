@@ -14,7 +14,7 @@ public class Key {
     @Id
 //    @SequenceGenerator(name = "seq_key_id", sequenceName = "seq_key_id",allocationSize = 1)
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_key_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Basic
     private String keyName;

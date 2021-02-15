@@ -35,6 +35,12 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    public boolean authorize(String pan, String pinBlock) {
+        Card card = cardRepository.getByPan(pan).orElseThrow((() -> new RuntimeException("Pan Not Found")));
+        return this.authorize(card, pinBlock);
+    }
+
+    @Override
     public void changePin(Long id, String pin) {
         Card card = cardRepository.findById(id).get();
         Key panDecryptionKey = keyRepository.findKeyByBinAndKeyUsage(card.getBin(), KeyUsage.ENCRYPT);

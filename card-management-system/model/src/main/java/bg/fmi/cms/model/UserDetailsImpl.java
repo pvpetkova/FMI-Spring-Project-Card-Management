@@ -1,18 +1,22 @@
 package bg.fmi.cms.model;
 
+import bg.fmi.cms.model.constats.AccountStatus;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
+
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
-    private User user;
+    private final User user;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()));
     }
 
     @Override
@@ -27,21 +31,21 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return user.getAccountStatus() == AccountStatus.ACTIVE;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return user.getAccountStatus() == AccountStatus.ACTIVE;
     }
 }

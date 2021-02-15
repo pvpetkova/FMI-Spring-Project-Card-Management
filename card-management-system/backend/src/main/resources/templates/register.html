@@ -6,7 +6,7 @@
 </head>
 <body>
 <h3>Send Registration Request</h3>
-<form th:action="@{/users/new}" method="post" th:object="${user}" enctype="multipart/form-data">
+<form th:action="@{/register}" method="post" th:object="${user}" enctype="multipart/form-data">
     <div class="form-group">
         <label for="username">Username: </label>
         <input class="form-control" id="username" name="username" required th:field="${user.username}"
@@ -21,8 +21,15 @@
     </div>
 
     <div class="form-group">
+        <label for="repeatPassword">Password: </label>
+        <input class="form-control" id="repeatPassword" name="repeatPassword" required
+               th:field="${user.repeatPassword}"
+               type="password">
+    </div>
+
+    <div class="form-group">
         <label for="role">Role: </label>
-        <select id="role" multiple name="role" required th:field="${user.role}">
+        <select id="role" name="role" required th:field="${user.role}">
             <option th:each="role : ${T(bg.fmi.cms.model.constats.Role).values()}"
                     th:value="${role}" th:text="${role}"></option>
         </select>

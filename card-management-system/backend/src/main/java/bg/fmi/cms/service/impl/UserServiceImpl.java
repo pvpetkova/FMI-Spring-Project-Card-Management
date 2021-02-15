@@ -5,14 +5,17 @@ import bg.fmi.cms.model.constats.AccountStatus;
 import bg.fmi.cms.repo.UserRepository;
 import bg.fmi.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
+
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     @Override
     public Iterable<User> getAllUsers() {
@@ -36,8 +39,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void add(User user) {
-        user.setAccountStatus(AccountStatus.SUSPENDED);
-        System.out.println(user.toString());
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setAccountStatus(AccountStatus.PENDING);
+        if (userRepository == null) {
+            throw new RuntimeException("user repo is null");
+        }
         userRepository.save(user);
     }
 

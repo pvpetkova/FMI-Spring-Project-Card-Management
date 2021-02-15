@@ -13,7 +13,7 @@ public class Card {
     @Id
 //    @SequenceGenerator(name = "seq_card_id", sequenceName = "seq_card_id",allocationSize = 1)
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_card_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Basic
     private String pan;
