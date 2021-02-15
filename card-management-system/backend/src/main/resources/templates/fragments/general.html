@@ -2,22 +2,74 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerfiles">
     <meta charset="UTF-8"/>
-    <!--    <link th:href="@{/css/styles.css}" rel="stylesheet">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
 <div th:fragment="header">
-    <h1><a th:href="@{/}">Thymeleaf Fragments sample</a></h1>
-        <li>
-            <a th:href="@{/users}">Users</a>
-            <a th:href="@{/requests}">Requests</a>
-            <a th:href="@{/users/settings}">User Settings</a>
-        </li>
-        <li>
-            <a href="/users/logout" th:href="@{#}" onclick="$('#form').submit();">
-                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout
-            </a>
-            <form style="visibility: hidden" id="form" method="post" action="" th:action="@{/users/logout}"></form>
-        </li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Card Management System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/greeting}" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users}">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/requests}">Requests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/settings}">User Settings</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+        Logout
+      </span>
+            </div>
+        </div>
+    </nav>
+
+    <!--    <li>-->
+    <!--        <a href="/users/logout" th:href="@{#}" onclick="$('#form').submit();">-->
+    <!--            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout-->
+    <!--        </a>-->
+    <!--        <form style="visibility: hidden" id="form" method="post" action="" th:action="@{/users/logout}"></form>-->
+    <!--    </li>-->
+</div>
+
+<div th:fragment="not-auth-header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Card Management System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/greeting}" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/login}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/register}">Register</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+        Logout
+      </span>
+            </div>
+        </div>
+    </nav>
 </div>
 
 <footer th:fragment="footer">

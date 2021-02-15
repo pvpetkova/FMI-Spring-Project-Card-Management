@@ -7,22 +7,21 @@ import bg.fmi.cms.repo.UserChangeRequestRepository;
 import bg.fmi.cms.repo.UserRepository;
 import bg.fmi.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
+    BCryptPasswordEncoder encoder;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private UserChangeRequestRepository userChangeRequestRepository;
-
-    @Autowired
-    BCryptPasswordEncoder encoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -56,6 +55,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
+//        Optional<User> byId = userRepository.findById(user.getId());
+//        if (byId.isPresent()) {
+//            User userFromDb = byId.get();
+//            userFromDb.setAccountStatus(user.getAccountStatus());
+//            userFromDb.setRole(user.getRole());
+//            userFromDb.setUsername(user.getUsername());
+//
+//            userRepository.save(userFromDb);
+//        }
+        userRepository.save(user);
     }
 
     @Override

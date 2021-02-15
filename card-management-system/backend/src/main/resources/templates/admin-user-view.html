@@ -4,54 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
 </head>
 <body>
-<header th:insert="fragments/general.html :: header"> </header>
+<header th:insert="fragments/general.html :: header"></header>
+<main class="container">
+    <div class="bg-light p-5 rounded mt-5 m-auto" style="max-width: 500px;">
+        <h3>Edit user</h3>
+        <form th:action="@{'/users/' + ${user.id}}" th:method="put" th:object="${user}" enctype="multipart/form-data">
+            <div class="form-group mt-2">
+                <label for="id">Id: </label>
+                <input class="form-control" id="id" name="id" readonly th:field="${user.id}"
+                       type="text">
+            </div>
 
-<form th:action="@{'/users/' + ${user.id}}" th:method="put" th:object="${user}" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="username">Username: </label>
-        <input class="form-control" id="username" name="username" required th:field="${user.username}"
-               type="text">
+            <div class="form-group mt-2">
+                <label for="username">Username: </label>
+                <input class="form-control" id="username" name="username" th:field="${user.username}"
+                       type="text">
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="role">Role: </label>
+                <select id="role" name="role" class="form-select" th:field="${user.role}">
+                    <option th:each="role : ${T(bg.fmi.cms.model.constats.Role).values()}"
+                            th:value="${role}" th:text="${role}"></option>
+                </select>
+            </div>
+
+            <div class="form-group mt-2 mb-5">
+                <label for="status">Account Status: </label>
+                <select id="status" name="status" class="form-select" th:field="${user.accountStatus}">
+                    <option th:each="stat : ${T(bg.fmi.cms.model.constats.AccountStatus).values()}"
+                            th:value="${stat}" th:text="${stat}"></option>
+                </select>
+            </div>
+
+            <!--    <div th:if="${user.changeRequests != null and !user.changeRequests.isEmpty()}" class="form-group">-->
+            <!--        <table>-->
+            <!--            <tr>-->
+            <!--                <th>Id</th>-->
+            <!--                <th>Requested Role</th>-->
+            <!--                <th>Status</th>-->
+            <!--            </tr>-->
+            <!--            <tr th:each="req: ${user.changeRequests}">-->
+            <!--                <td th:text="${req.id}"></td>-->
+            <!--                <td th:text="${req.requestedRole}"></td>-->
+            <!--                <td th:text="${req.status}"></td>-->
+            <!--            </tr>-->
+            <!--        </table>-->
+            <!--    </div>-->
+
+            <button class="btn btn-primary" type="submit">Edit</button>
+
+            <!--    <p th:text="${message}"></p>-->
+        </form>
+        <form th:action="@{'/users/' + ${user.id}}" th:method="delete" th:object="${user}"
+              enctype="multipart/form-data">
+            <button class="btn btn-outline-secondary" style="position: relative; top: -38px; left:60px" type="submit">Delete
+            </button>
+        </form>
     </div>
-
-    <div class="form-group">
-        <label for="role">Role: </label>
-        <select id="role" name="role" required th:field="${user.role}">
-            <option th:each="role : ${T(bg.fmi.cms.model.constats.Role).values()}"
-                    th:value="${role}" th:text="${role}"></option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="status">Role: </label>
-        <select id="status" name="status" required th:field="${user.accountStatus}">
-            <option th:each="stat : ${T(bg.fmi.cms.model.constats.AccountStatus).values()}"
-                    th:value="${stat}" th:text="${stat}"></option>
-        </select>
-    </div>
-
-<!--    <div th:if="${user.changeRequests != null and !user.changeRequests.isEmpty()}" class="form-group">-->
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <th>Id</th>-->
-<!--                <th>Requested Role</th>-->
-<!--                <th>Status</th>-->
-<!--            </tr>-->
-<!--            <tr th:each="req: ${user.changeRequests}">-->
-<!--                <td th:text="${req.id}"></td>-->
-<!--                <td th:text="${req.requestedRole}"></td>-->
-<!--                <td th:text="${req.status}"></td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--    </div>-->
-
-    <button class="btn btn-primary" type="submit">Edit</button>
-
-    <!--    <p th:text="${message}"></p>-->
-</form>
-<form th:action="@{'/users/' + ${user.id}}" th:method="delete" th:object="${user}" enctype="multipart/form-data">
-    <button class="btn btn-primary" type="submit">Delete</button>
-</form>
+</main>
 </body>
 </html>

@@ -55,7 +55,7 @@ public class UserController {
     @GetMapping(value = "/settings")
     public String getUserSettings(Model model) {
         // TODO bind current user
-        User currentUser = userService.getById(0L);
+        User currentUser = userService.getById(1L);
         model.addAttribute("currentUser", currentUser);
         UserChangeRequest changeRequest = new UserChangeRequest();
         changeRequest.setUserId(currentUser.getId());
@@ -77,8 +77,9 @@ public class UserController {
 
     @PutMapping(value = "/{userID}")
     public String editUser(Model model, @PathVariable long userID, @ModelAttribute User user) {
+        user.setId(userID);
         userService.update(user);
-        return "users/" + user.getId();
+        return "users";
     }
 
     @PostMapping(value = "/settings")
@@ -86,7 +87,7 @@ public class UserController {
         // TODO add user change request
         userService.addUserChangeRequest(userChangeRequest);
         // return original user
-        model.addAttribute("currentUser", userService.getById(0L));
+        model.addAttribute("currentUser", userService.getById(1L));
         return "settings";
     }
 }
