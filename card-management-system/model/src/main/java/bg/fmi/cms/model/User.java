@@ -31,7 +31,8 @@ public class User {
     @Basic
     @Column(name = "role")
     private Role role;
-    @Basic
     @Column(name = "account_status")
+    @Enumerated(EnumType.ORDINAL)
     private AccountStatus accountStatus;
+//    private List<UserChangeRequest> changeRequests;
 }

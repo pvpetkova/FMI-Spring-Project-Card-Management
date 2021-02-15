@@ -37,7 +37,7 @@ public class KeyTest {
 
     @Test
     public void testPassword() {
-        String password = "passwd";
+        String password = "asd";
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         System.out.println("passwordEncoder.encode(password) = " + passwordEncoder.encode(password));
 

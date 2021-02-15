@@ -41,11 +41,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/**").permitAll()
+                .antMatchers("/users/login").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/index").permitAll()
-                .antMatchers("/register").permitAll()
-                .antMatchers("/users").hasAuthority(Role.ADMIN.toString())
+                .antMatchers("/users/register").permitAll()
+                .antMatchers("/users/settings").hasAnyAuthority()
+                .antMatchers("/users/**").hasAuthority(Role.ADMIN.toString())
                 .antMatchers("/card-prod").hasAuthority(Role.CARD_PRODUCTION.toString())
                 .antMatchers("/requests").hasAuthority(Role.MANAGEMENT.toString())
                 .antMatchers("/card").hasAuthority(Role.CARD_PRODUCTION.toString())
@@ -55,12 +57,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/users/login")
                 .permitAll()
-                .defaultSuccessUrl("/requests")
+                .defaultSuccessUrl("/greeting")
                 .and()
                 .logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/users/logout")
                 .deleteCookies("JSESSIONID");
     }
 }

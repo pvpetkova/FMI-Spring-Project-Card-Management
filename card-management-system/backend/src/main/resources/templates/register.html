@@ -6,7 +6,7 @@
 </head>
 <body>
 <h3>Send Registration Request</h3>
-<form th:action="@{/register}" method="post" th:object="${user}" enctype="multipart/form-data">
+<form th:action="@{/users/register}" method="post" th:object="${user}" enctype="multipart/form-data">
     <div class="form-group">
         <label for="username">Username: </label>
         <input class="form-control" id="username" name="username" required th:field="${user.username}"

@@ -74,3 +74,19 @@ alter table request
     add constraint request_user_id_fk foreign key (issuer) references user (id);
 
 
+
+create table user_change_request
+(
+	id int null,
+	user_id int null,
+	requested_role int null,
+	status int null,
+	constraint user_change_request_pk
+		primary key (id)
+);
+
+alter table user_change_request
+    add constraint user_change_request_user_id_fk
+        foreign key (user_id) references user (id);
+
+commit;

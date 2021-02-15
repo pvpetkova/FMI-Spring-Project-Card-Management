@@ -1,7 +1,9 @@
 package bg.fmi.cms.service.impl;
 
 import bg.fmi.cms.model.User;
+import bg.fmi.cms.model.UserChangeRequest;
 import bg.fmi.cms.model.constats.AccountStatus;
+import bg.fmi.cms.repo.UserChangeRequestRepository;
 import bg.fmi.cms.repo.UserRepository;
 import bg.fmi.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,22 +11,27 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    @Autowired
+    private UserChangeRequestRepository userChangeRequestRepository;
 
     @Autowired
     BCryptPasswordEncoder encoder;
 
     @Override
-    public Iterable<User> getAllUsers() {
-        return null;
+    public List<User> getAllUsers() {
+        return (List<User>) userRepository.findAll();
     }
 
     @Override
     public User getById(Long id) {
-        return null;
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -34,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-
+        userRepository.findById(id).ifPresent(user1 -> userRepository.delete(user1));
     }
 
     @Override
@@ -49,6 +56,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
+    }
 
+    @Override
+    public void addUserChangeRequest(UserChangeRequest currentUser) {
+        userChangeRequestRepository.save(currentUser);
     }
 }

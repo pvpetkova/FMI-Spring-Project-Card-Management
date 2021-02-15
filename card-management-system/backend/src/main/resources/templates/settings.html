@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User Settings</title>
 </head>
 <body>
+<header th:insert="fragments/general.html :: header"> </header>
 
+<h3>View & Change User Details</h3>
+<div class="form-group">
+    <p>Username: <span th:text="${currentUser.username}"></span></p>
+    <p>Role: <span th:text="${currentUser.role}"></span></p>
+    <p>Account Status: <span th:text="${currentUser.accountStatus}"></span></p>
+</div>
+
+<h3>Change Role</h3>
+<form th:action="@{/users/settings}" method="post" th:object="${userChangeRequest}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="role">Role: </label>
+        <select id="role" name="role" th:field="${userChangeRequest.requestedRole}">
+            <option th:each="role : ${T(bg.fmi.cms.model.constats.Role).values()}"
+                    th:value="${role}" th:text="${role}"></option>
+        </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit Change Request</button>
+    <!--    <p th:text="${message}"></p>-->
+</form>
 </body>
 </html>

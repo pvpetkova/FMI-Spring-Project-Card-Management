@@ -6,7 +6,7 @@
 </head>
 <body>
 <h3>Login</h3>
-<form th:action="@{/login}" method="post" th:object="${user}" enctype="multipart/form-data">
+<form th:action="@{/users/login}" method="post" th:object="${user}" enctype="multipart/form-data">
     <div class="form-group">
         <label for="idInputName">Username: </label>
         <input aria-describedby="recipeHelp" required class="form-control" id="idInputName" th:field="${user.username}"
@@ -19,8 +19,6 @@
                th:field="${user.password}"
                type="password">
     </div>
-
-
 
     <button class="btn btn-primary" type="submit">Login</button>
 </form>

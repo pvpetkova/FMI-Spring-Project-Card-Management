@@ -1,10 +1,12 @@
 package bg.fmi.cms.service;
 
 import bg.fmi.cms.model.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import bg.fmi.cms.model.UserChangeRequest;
 
-public interface UserService{
-    Iterable<User> getAllUsers();
+import java.util.List;
+
+public interface UserService {
+    List<User> getAllUsers();
 
     User getById(Long id);
 
@@ -15,4 +17,6 @@ public interface UserService{
     void add(User user);
 
     void update(User user);
+
+    void addUserChangeRequest(UserChangeRequest currentUser);
 }

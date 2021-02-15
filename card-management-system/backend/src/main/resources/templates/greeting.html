@@ -5,6 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text="'Hello, ' + ${name} + '!'"></p>
+<header th:insert="fragments/general.html :: header"> </header>
+
+<p th:text="'Welcome!'"></p>
 </body>
 </html>

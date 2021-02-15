@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <!--    <link th:href="@{/css/styles.css}" rel="stylesheet">-->
+</head>
+<body>
+<div th:fragment="header">
+    <h1><a th:href="@{/}">Thymeleaf Fragments sample</a></h1>
+        <li>
+            <a th:href="@{/users}">Users</a>
+            <a th:href="@{/requests}">Requests</a>
+            <a th:href="@{/users/settings}">User Settings</a>
+        </li>
+        <li>
+            <a href="/users/logout" th:href="@{#}" onclick="$('#form').submit();">
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout
+            </a>
+            <form style="visibility: hidden" id="form" method="post" action="" th:action="@{/users/logout}"></form>
+        </li>
+</div>
+
+<footer th:fragment="footer">
+</footer>
+</body>
+</html>

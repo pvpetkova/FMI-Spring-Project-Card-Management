@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Users Dashboard</title>
 </head>
 <body>
+<header th:insert="fragments/general.html :: header"> </header>
 
+<h3>Users Dashboard</h3>
+<a th:href="@{/users/register}" class="button">Add new user</a>
+<div th:if="${usersList!=null and !usersList.isEmpty()}">
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Account Status</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="user: ${usersList}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.accountStatus}"></td>
+            <!--TODO: add check for role-->
+            <td>
+                <a th:href="@{'/users/' + ${user.id}}">Edit</a>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

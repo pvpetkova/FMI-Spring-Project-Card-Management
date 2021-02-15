@@ -1,21 +1,25 @@
 package bg.fmi.cms.controller;
 
 import bg.fmi.cms.model.User;
+import bg.fmi.cms.model.UserChangeRequest;
 import bg.fmi.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller()
-//@RequestMapping("/users")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserService userService;
 
+    @GetMapping()
+    public String getUsersList(Model model) {
+        model.addAttribute("usersList", userService.getAllUsers());
+        return "users";
+    }
 
     @GetMapping(value = "/register")
     public String greetingForm(Model model) {
@@ -39,13 +43,50 @@ public class UserController {
 
     @PostMapping(value = "/login")
     public String login(@ModelAttribute User user, Model model) {
-
-        return "";
+        model.addAttribute("user", user);
+        return "greeting";
     }
 
-    @GetMapping(value = "/logout")
+    @PostMapping(value = "/logout")
     public String logout() {
         return "";
     }
 
+    @GetMapping(value = "/settings")
+    public String getUserSettings(Model model) {
+        // TODO bind current user
+        User currentUser = userService.getById(0L);
+        model.addAttribute("currentUser", currentUser);
+        UserChangeRequest changeRequest = new UserChangeRequest();
+        changeRequest.setUserId(currentUser.getId());
+        model.addAttribute("userChangeRequest", changeRequest);
+        return "settings";
+    }
+
+    @GetMapping(value = "/{userID}")
+    public String viewUser(Model model, @PathVariable long userID) {
+        model.addAttribute("user", userService.getById(userID));
+        return "admin-user-view";
+    }
+
+    @DeleteMapping(value = "/{userID}")
+    public String deleteUser(Model model, @PathVariable long userID) {
+        userService.delete(userID);
+        return "users";
+    }
+
+    @PutMapping(value = "/{userID}")
+    public String editUser(Model model, @PathVariable long userID, @ModelAttribute User user) {
+        userService.update(user);
+        return "users/" + user.getId();
+    }
+
+    @PostMapping(value = "/settings")
+    public String changeUserSettings(@ModelAttribute UserChangeRequest userChangeRequest, Model model) {
+        // TODO add user change request
+        userService.addUserChangeRequest(userChangeRequest);
+        // return original user
+        model.addAttribute("currentUser", userService.getById(0L));
+        return "settings";
+    }
 }
