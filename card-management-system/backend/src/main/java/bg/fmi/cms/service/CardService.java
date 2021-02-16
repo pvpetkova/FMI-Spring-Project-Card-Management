@@ -18,6 +18,8 @@ public interface CardService {
 
     Card addCard(Card card);
 
+    Card getById(Long id);
+
     List<Card> getAll();
 
     List<Card> getClearCardDetails();

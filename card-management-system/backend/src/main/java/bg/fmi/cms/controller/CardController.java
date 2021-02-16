@@ -62,9 +62,9 @@ public class CardController {
         return "cards";
     }
 
-    @GetMapping("/cards/{pan}")
-    public String getCard(Model model, @PathVariable String pan) {
-        model.addAttribute("card", cardService.getByClearPan(pan));
+    @GetMapping("/cards/{id}")
+    public String getCard(Model model, @PathVariable Long id) {
+        model.addAttribute("card", cardService.getById(id));
         return "card-detail";
     }
 

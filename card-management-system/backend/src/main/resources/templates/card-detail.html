@@ -13,7 +13,7 @@
         <h3 class="mb-4">View & Edit Card</h3>
 
         <h3>Change Status</h3>
-        <form th:action="@{'/cards/' + ${card.id} + '/status'}" th:method="put" th:object="${card}"
+        <form th:action="@{'/card-prod/cards/' + ${card.id} + '/status'}" th:method="put" th:object="${card}"
               enctype="multipart/form-data">
 
             <div class="form-group mt-2 mb-5">
@@ -28,7 +28,7 @@
         </form>
 
         <h3>Change Pin</h3>
-        <form th:action="@{'/cards/' + ${card.id} + '/pin'}" th:method="put" th:object="${card}"
+        <form th:action="@{'/card-prod/cards/' + ${card.id} + '/update-pin'}" th:method="put" th:object="${card}"
               enctype="multipart/form-data">
 
             <div class="form-group mt-2 mb-5">

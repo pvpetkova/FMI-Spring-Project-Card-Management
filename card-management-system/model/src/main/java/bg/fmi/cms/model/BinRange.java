@@ -20,6 +20,8 @@ public class BinRange {
     private String endBin;
     @Basic
     private String description;
-    @OneToMany(mappedBy = "binRange")
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn( name="bin_range", referencedColumnName = "id")
     private Collection<Bin> bins;
 }

@@ -11,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Arrays;
 
 public class CipherUtils {
@@ -33,8 +32,7 @@ public class CipherUtils {
     }
 
     public static String encryptPan(String clearPan, String key) {
-        byte[] iv = new byte[8];
-        new SecureRandom().nextBytes(iv);
+        byte[] iv = new byte[]{0, 0, 0, 0, 0, 0, 0, 0};
         byte[] encPanBytes;
         SecretKeySpec tDesKey = stringToDes3(key);
         Cipher cipher = null;

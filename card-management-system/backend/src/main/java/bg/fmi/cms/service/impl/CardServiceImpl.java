@@ -54,7 +54,7 @@ public class CardServiceImpl implements CardService {
         Card card = cardRepository.findById(id).get();
         SymmetricKey panDecryptionKey = keyRepository.findSymmetricKeyByBinAndKeyUsage(card.getBin(), KeyUsage.CARD_PAN_KEY);
         SymmetricKey pinEncryptionKey = keyRepository.findSymmetricKeyByBinAndKeyUsage(card.getBin(), KeyUsage.CARD_PIN_KEY);
-        card.setPinBlock(CipherUtils.pinBlock(pinEncryptionKey.getKeyValue(), pin, CipherUtils.getClearPan(card.getPan(), panDecryptionKey.getKeyValue())));
+        card.setPinBlock(CipherUtils.pinBlock(pinEncryptionKey.getKeyValue(), pin.substring(0, 4), CipherUtils.getClearPan(card.getPan(), panDecryptionKey.getKeyValue())));
         cardRepository.save(card);
     }
 
@@ -80,6 +80,14 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    public Card getById(Long id) {
+        Card card = cardRepository.findById(id).orElseThrow(() -> new RuntimeException(id + ""));
+        card.setPan(CipherUtils.getClearPan(card.getPan(), keyRepository.findSymmetricKeyByBinAndKeyUsage(card.getBin(), KeyUsage.CARD_PAN_KEY).getKeyValue()));
+        card.setPinBlock("");
+        return card;
+    }
+
+    @Override
     public List<Card> getAll() {
         // TODO fix retrieval of pins
         return (List<Card>) cardRepository.findAll();
@@ -87,7 +95,7 @@ public class CardServiceImpl implements CardService {
 
     public List<Card> getClearCardDetails() {
         Iterable<Card> all = cardRepository.findAll();
-        all.forEach(c -> c.setPan(CipherUtils.getClearPan(c.getPan(), keyRepository.findSymmetricKeyByBinAndKeyUsage(c.getBin(), KeyUsage.CARD_PAN_KEY).getKeyValue())));
+        all.forEach(this::maskCard);
         return (List<Card>) all;
     }
 
@@ -95,5 +103,17 @@ public class CardServiceImpl implements CardService {
         return "0" + cvv;
     }
 
+    private void maskCard(Card card) {
+        String pan = CipherUtils.getClearPan(card.getPan(), keyRepository.findSymmetricKeyByBinAndKeyUsage(card.getBin(), KeyUsage.CARD_PAN_KEY).getKeyValue());
+        StringBuilder builder = new StringBuilder();
+        builder.append(pan, 0, 4);
+        builder.append(" ");
+        builder.append(pan, 4, 6);
+        builder.append("** **** ");
+        builder.append(pan, 12, 16);
+        card.setPan(builder.toString());
+        card.setPinBlock("****");
+        card.setCvv("***");
+    }
 
 }

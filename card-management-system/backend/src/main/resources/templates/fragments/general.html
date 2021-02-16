@@ -45,14 +45,18 @@
                         </ul>
                     </div>
 
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" th:href="@{/users/settings}">User Settings</a>-->
+<!--                    </li>-->
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/users/settings}">User Settings</a>
+                        <a class="nav-link" th:href="@{/card-prod/cards}">Cards</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/keys}">Key Management</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/card-prod/cards}">Cards</a>
+                        <a class="nav-link" th:href="@{/bin-management}">Bin Management</a>
                     </li>
                 </ul>
                 <span sec:authorize="isAuthenticated()">

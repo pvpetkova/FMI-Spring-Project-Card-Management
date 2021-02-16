@@ -5,10 +5,11 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
-@ToString(exclude = "binRange")
+@ToString(exclude = {"binRange","symmetricKeys"})
 @EqualsAndHashCode(exclude = "binRange")
 @Table(name = "bin", schema = "cms")
 public class Bin {
@@ -24,4 +25,7 @@ public class Bin {
     @ManyToOne()
     @JoinColumn(name = "bin_range", referencedColumnName = "id")
     private BinRange binRange;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bin_id", referencedColumnName = "id")
+    private List<SymmetricKey> symmetricKeys;
 }
