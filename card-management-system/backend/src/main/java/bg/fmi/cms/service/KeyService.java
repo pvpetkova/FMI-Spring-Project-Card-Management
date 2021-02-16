@@ -1,11 +1,13 @@
 package bg.fmi.cms.service;
 
-import bg.fmi.cms.model.Key;
+import bg.fmi.cms.model.SymmetricKey;
+
+import java.util.List;
 
 public interface KeyService {
-    Key getById(Long id);
+    SymmetricKey getById(Long id);
     void delete(Long id);
-    Iterable<Key> getAll();
-    void addKey(Key key);
-
+    List<SymmetricKey> getAll();
+    void addKey(SymmetricKey key, String bin);
+    void save(SymmetricKey key);
 }

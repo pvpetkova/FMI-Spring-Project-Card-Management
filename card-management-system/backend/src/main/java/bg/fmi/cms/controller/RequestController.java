@@ -2,6 +2,7 @@ package bg.fmi.cms.controller;
 
 import bg.fmi.cms.model.Request;
 import bg.fmi.cms.model.constats.RequestStatus;
+import bg.fmi.cms.service.CardService;
 import bg.fmi.cms.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class RequestController {
 
     @Autowired
     RequestService requestService;
+
+    @Autowired
+    CardService cardService;
 
     @GetMapping(value = "/requests")
     public String showAllRequests(Model model) {
@@ -37,4 +41,6 @@ public class RequestController {
         requestService.changeRequestStatus(request.getId(), filterStatus);
         return "requests";
     }
+
+
 }

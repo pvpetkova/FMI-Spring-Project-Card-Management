@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Key Management</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <style>
+        table, th, td {
+            border: 1px solid #d4d4d4;
+        }
+    </style>
+</head>
+
+<body>
+<header th:insert="fragments/general.html :: header"></header>
+<main class="container">
+    <div class="bg-light p-5 rounded mt-5 m-auto" style="max-width: 500px;">
+        <h3>Edit Key Details</h3>
+        <form th:action="@{'/keys'}" th:method="${isNew?'post':'put'}"
+              enctype="multipart/form-data"
+              th:object="${symKey}">
+            <div class="form-group mt-2">
+                <label for="keyId" th:hidden="${isNew}">Key ID: </label>
+                <input class="form-control" id="keyId" name="keyId"
+                       th:hidden="${isNew}"
+                       readonly
+                       th:field="${symKey.id}"
+                       type="text">
+            </div>
+            <div class="form-group mt-2">
+                <label for="keyName">Key Name: </label>
+                <input class="form-control" id="keyName" name="keyName"
+                       th:field="${symKey.keyName}"
+                       type="text">
+            </div>
+            <div class="form-group mt-2">
+                <label for="keyValue">Key Value: </label>
+                <input class="form-control" id="keyValue" name="keyValue" required
+                       th:field="${symKey.keyValue}"
+                       type="text">
+            </div>
+            <div class="form-group mt-2">
+                <label for="usage">Usage: </label>
+                <select class="form-select" id="usage" name="usage" required th:field="${symKey.keyUsage}">
+                    <option th:each="usage : ${T(bg.fmi.cms.model.constats.KeyUsage).values()}"
+                            th:value="${usage}" th:text="${usage}"></option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <label for="type">Key Type: </label>
+                <select class="form-select" id="type" name="type" required th:field="${symKey.keyType}">
+                    <option th:each="type : ${T(bg.fmi.cms.model.constats.KeyType).values()}"
+                            th:value="${type}" th:text="${type}"></option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <label for="keyBin">Bin: </label>
+                <select class="form-select" id="keyBin" name="keyBin" required th:field="${symKey.bin}">
+                    <option th:each="bin : ${binList}"
+                            th:value="${bin.id}" th:text="${bin.bin}"></option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </form>
+        <form th:action="@{'/keys/' + ${symKey.id}}" th:method="delete" th:object="${symKey}"
+              enctype="multipart/form-data">
+            <button class="btn btn-outline-secondary" style="position: relative; top: -38px; left:60px" type="submit">
+                Delete
+            </button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

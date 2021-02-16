@@ -9,8 +9,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "key", schema = "cms")
-public class Key {
+@Table(name = "symmetric_key", schema = "cms")
+public class SymmetricKey {
     @Id
 //    @SequenceGenerator(name = "seq_key_id", sequenceName = "seq_key_id",allocationSize = 1)
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_key_id")

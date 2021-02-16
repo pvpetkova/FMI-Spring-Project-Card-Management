@@ -1,11 +1,14 @@
 package bg.fmi.cms.service.impl;
 
+import bg.fmi.cms.keys.CipherUtils;
+import bg.fmi.cms.model.Card;
 import bg.fmi.cms.model.Request;
 import bg.fmi.cms.model.constats.CardStatus;
 import bg.fmi.cms.model.constats.RequestStatus;
 import bg.fmi.cms.model.constats.RequestType;
 import bg.fmi.cms.repo.RequestRepository;
 import bg.fmi.cms.service.RequestService;
+import bg.fmi.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Autowired
     RequestRepository requestRepository;
+
+    @Autowired
+    UserService userService;
 
     @Override
     public List<Request> listAllRequests() {
@@ -46,9 +52,9 @@ public class RequestServiceImpl implements RequestService {
     public void addNewCardRequest(Request request) {
         request.setRequestStatus(RequestStatus.PENDING);
         request.setRequestType(RequestType.CREATE);
-
+        request.setIssuer(userService.getCurrentUser());
         request.getRequestSubject().setCardStatus(CardStatus.ACTIVE);
-//        requestRepository.save(request);
+        requestRepository.save(request);
     }
 
     @Override

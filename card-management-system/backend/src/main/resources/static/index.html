@@ -1,10 +1,13 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>CMS</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
+<header th:insert="fragments/general.html :: not-auth-header"></header>
 <h1>Card Management System</h1>
 <p>To use the system, you must be a registered user.</p>
 <p>Register <a href="users/register">here</a> or <a href="users/login">login</a>. </p>

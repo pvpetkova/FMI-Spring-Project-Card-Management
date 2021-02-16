@@ -1,11 +1,15 @@
 package bg.fmi.cms.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@ToString(exclude = "binRange")
+@EqualsAndHashCode(exclude = "binRange")
 @Table(name = "bin", schema = "cms")
 public class Bin {
     @Id

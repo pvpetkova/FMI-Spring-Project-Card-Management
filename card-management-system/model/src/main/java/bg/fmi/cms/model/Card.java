@@ -2,8 +2,11 @@ package bg.fmi.cms.model;
 
 import bg.fmi.cms.model.constats.CardStatus;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Entity
@@ -24,6 +27,7 @@ public class Card {
     @Basic
     private String cvv;
     @Basic
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expiryDate;
     @Enumerated(EnumType.ORDINAL)
     private CardStatus cardStatus;

@@ -2,7 +2,7 @@ package bg.fmi.cms.service.impl;
 
 import bg.fmi.cms.keys.KeyGenerator;
 import bg.fmi.cms.model.Bin;
-import bg.fmi.cms.model.Key;
+import bg.fmi.cms.model.SymmetricKey;
 import bg.fmi.cms.model.constats.KeyUsage;
 import bg.fmi.cms.repo.BinRepository;
 import bg.fmi.cms.repo.CardRepository;
@@ -28,10 +28,10 @@ public class BinServiceImpl implements BinService {
 
     @Override
     public void add(Bin bin) {
-        List<Key> keys = new LinkedList<>();
-        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.PIN, bin));
-        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.ENCRYPT, bin));
-        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.DECRYPT, bin));
+        List<SymmetricKey> keys = new LinkedList<>();
+        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.CARD_PIN_KEY, bin));
+        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.CARD_PAN_KEY, bin));
+        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.AUTHORIZATION_PIN_KEY, bin));
         binRepository.save(bin);
         keyRepository.saveAll(keys);
     }
@@ -48,11 +48,16 @@ public class BinServiceImpl implements BinService {
 
     @Override
     public void changeKeys(Bin bin) {
-        List<Key> keys = keyRepository.findKeyByBin(bin);
-        for(Key key: keys){
+        List<SymmetricKey> keys = keyRepository.findSymmetricKeysByBin(bin);
+        for (SymmetricKey key : keys) {
             key = KeyGenerator.generateDesEDEKey(key.getKeyUsage(), bin);
         }
         keyRepository.saveAll(keys);
 
+    }
+
+    @Override
+    public List<Bin> getAll() {
+        return (List<Bin>) binRepository.findAll();
     }
 }

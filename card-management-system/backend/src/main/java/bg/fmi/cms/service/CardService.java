@@ -4,7 +4,6 @@ import bg.fmi.cms.model.Card;
 import bg.fmi.cms.model.constats.CardStatus;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface CardService {
     void updateCardStatus(Long cardId, CardStatus status);
 
@@ -13,4 +12,8 @@ public interface CardService {
     boolean authorize(String pan, String pinBlock);
 
     void changePin(Long card, String pin);
+
+    Card getByClearPan(String pan);
+
+    Card addCard(Card card);
 }

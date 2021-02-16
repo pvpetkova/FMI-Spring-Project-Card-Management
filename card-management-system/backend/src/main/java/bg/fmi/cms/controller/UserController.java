@@ -55,7 +55,7 @@ public class UserController {
     @GetMapping(value = "/settings")
     public String getUserSettings(Model model) {
         // TODO bind current user
-        User currentUser = userService.getById(1L);
+        User currentUser = userService.getCurrentUser();
         model.addAttribute("currentUser", currentUser);
         UserChangeRequest changeRequest = new UserChangeRequest();
         changeRequest.setUserId(currentUser.getId());
@@ -87,7 +87,7 @@ public class UserController {
         // TODO add user change request
         userService.addUserChangeRequest(userChangeRequest);
         // return original user
-        model.addAttribute("currentUser", userService.getById(1L));
+        model.addAttribute("currentUser", userService.getCurrentUser());
         return "settings";
     }
 }

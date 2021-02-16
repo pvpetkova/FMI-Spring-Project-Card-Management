@@ -19,4 +19,6 @@ public interface UserService {
     void update(User user);
 
     void addUserChangeRequest(UserChangeRequest currentUser);
+
+    User getCurrentUser();
 }

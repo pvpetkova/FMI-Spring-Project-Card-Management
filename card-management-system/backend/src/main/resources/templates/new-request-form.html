@@ -5,35 +5,70 @@
     <title>New Request</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <style>
+        select.input-form {
+            display: inline-block;
+            margin-left: 0;
+            margin-right: 0;
+            width: 35%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+    </style>
 </head>
 <body>
 <header th:insert="fragments/general.html :: header"></header>
 <main class="container">
     <div class="bg-light p-5 rounded mt-5 m-auto" style="max-width: 500px;">
         <h3 class="mb-4">New Request</h3>
-        <form th:action="@{/users/register}" method="post" th:object="${request}" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="pan">Pan: </label>
-                <input class="form-control" type="text" th:field="${request.requestSubject.pan}" id="pan" name="pan">
+        <form th:action="@{/card-prod/request}" method="post" th:object="${request}" enctype="multipart/form-data">
+            <div style="display: inline-block">
+                <fieldset>
+                    <legend>Pan:</legend>
+                    <select class="input-form" id="cardBin" name="cardBin" required
+                            th:field="${request.requestSubject.bin}">
+                        <option th:each="bin : ${binList}"
+                                th:value="${bin.id}" th:text="${bin.bin}"></option>
+                    </select>
+                    <input class="form-control" style="display: inline-block; margin-left: 0; width: 52%" type="text"
+                           pattern="\d*" maxlength="9"
+                           minlength="9"
+                           id="pan" name="pan" onfocusout="luhn()">
+                    <input class="form-control" style="display: inline-block; margin-left: 0; width: 10%" id="checksum"
+                           type="text" maxlength="1"
+                           minlength="1" readonly>
+                    <input type="text" hidden id="fullpan" th:field="${request.requestSubject.pan}">
+                </fieldset>
             </div>
             <div class="form-group">
-                <label for="cardHolderName">Card Holder Name: </label>
+                <label for="cardHolderName">Cardholder Name: </label>
                 <input class="form-control" type="text" th:field="${request.requestSubject.cardHolderName}"
                        id="cardHolderName"
                        name="cardHolderName">
             </div>
             <div class="form-group">
                 <label for="pinBlock">Pin Block: </label>
-                <input class="form-control" type="text" th:field="${request.requestSubject.pinBlock}" id="pinBlock"
+                <input class="form-control" type="text" th:field="${request.requestSubject.pinBlock}" maxlength="4"
+                       minlength="4" pattern="\d*" id="pinBlock"
                        name="pinBlock">
             </div>
             <div class="form-group">
                 <label for="cvv">CVV: </label>
-                <input class="form-control" type="text" th:field="${request.requestSubject.cvv}" id="cvv" name="cvv">
+                <input class="form-control" type="text" th:field="${request.requestSubject.cvv}" minlength="3"
+                       maxlength="3" pattern="\d*" id="cvv" name="cvv">
             </div>
             <div class="form-group">
                 <label for="expiryDate">Expiry Date: </label>
-                <input class="form-control" type="date" th:field="${request.requestSubject.expiryDate}" id="expiryDate"
+                <input class="form-control" type="date" th:datetime="${request.requestSubject.expiryDate}"
+                       id="expiryDate"
                        name="expiryDate">
             </div>
 
@@ -48,5 +83,39 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
         integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
         crossorigin="anonymous"></script>
+<script type="text/javascript">
+    function luhn() {
+        var bin = document.getElementById("cardBin");
+        var binVal = bin.options[bin.selectedIndex].text;
+        var fullPan = binVal.concat(document.getElementById("pan").value);
+        console.log(fullPan);
+        var checksum = luhn_caclulate(fullPan);
+        document.getElementById("fullpan").value = fullPan.concat(checksum);
+        document.getElementById("checksum").value = checksum;
+
+    }
+
+    function luhn_checksum(code) {
+        var len = code.length
+        var parity = len % 2
+        var sum = 0
+        for (var i = len - 1; i >= 0; i--) {
+            var d = parseInt(code.charAt(i))
+            if (i % 2 == parity) {
+                d *= 2
+            }
+            if (d > 9) {
+                d -= 9
+            }
+            sum += d
+        }
+        return sum % 10
+    }
+
+    function luhn_caclulate(partcode) {
+        var checksum = luhn_checksum(partcode + "0")
+        return checksum == 0 ? 0 : 10 - checksum
+    }
+</script>
 </body>
 </html>

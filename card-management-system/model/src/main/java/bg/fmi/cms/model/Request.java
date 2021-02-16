@@ -15,7 +15,7 @@ public class Request {
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_request_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "issuer", referencedColumnName = "id")
     private User issuer;
     @Enumerated(EnumType.ORDINAL)
@@ -24,7 +24,7 @@ public class Request {
     private RequestStatus requestStatus;
     @Basic
     private String reason;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "request_subject", referencedColumnName = "id")
     private Card requestSubject;
 }

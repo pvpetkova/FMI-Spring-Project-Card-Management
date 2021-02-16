@@ -2,16 +2,17 @@ package bg.fmi.cms.service.impl;
 
 import bg.fmi.cms.model.User;
 import bg.fmi.cms.model.UserChangeRequest;
+import bg.fmi.cms.model.UserDetailsImpl;
 import bg.fmi.cms.model.constats.AccountStatus;
 import bg.fmi.cms.repo.UserChangeRequestRepository;
 import bg.fmi.cms.repo.UserRepository;
 import bg.fmi.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
     public User getById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
+
 
     @Override
     public User getByUserName(String userName) {
@@ -70,5 +72,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUserChangeRequest(UserChangeRequest currentUser) {
         userChangeRequestRepository.save(currentUser);
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetailsImpl) {
+            return ((UserDetailsImpl) principal).getUser();
+        } else {
+            return null;
+        }
     }
 }
