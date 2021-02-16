@@ -14,7 +14,9 @@ public interface RequestService {
 
     List<Request> getFilteredRequests(RequestStatus filterStatus);
 
-    void add(Request request);
+    void addNewCardRequest(Request request);
+
+    void addRevokeRequest(Request request);
 
     void delete(Long id);
 }

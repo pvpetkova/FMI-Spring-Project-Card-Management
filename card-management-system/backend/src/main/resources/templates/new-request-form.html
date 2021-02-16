@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Request</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+<header th:insert="fragments/general.html :: header"></header>
+<main class="container">
+    <div class="bg-light p-5 rounded mt-5 m-auto" style="max-width: 500px;">
+        <h3 class="mb-4">New Request</h3>
+        <form th:action="@{/users/register}" method="post" th:object="${request}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="pan">Pan: </label>
+                <input class="form-control" type="text" th:field="${request.requestSubject.pan}" id="pan" name="pan">
+            </div>
+            <div class="form-group">
+                <label for="cardHolderName">Card Holder Name: </label>
+                <input class="form-control" type="text" th:field="${request.requestSubject.cardHolderName}"
+                       id="cardHolderName"
+                       name="cardHolderName">
+            </div>
+            <div class="form-group">
+                <label for="pinBlock">Pin Block: </label>
+                <input class="form-control" type="text" th:field="${request.requestSubject.pinBlock}" id="pinBlock"
+                       name="pinBlock">
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV: </label>
+                <input class="form-control" type="text" th:field="${request.requestSubject.cvv}" id="cvv" name="cvv">
+            </div>
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date: </label>
+                <input class="form-control" type="date" th:field="${request.requestSubject.expiryDate}" id="expiryDate"
+                       name="expiryDate">
+            </div>
+
+            <button class="btn btn-primary mt-5" type="submit">Submit</button>
+        </form>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
+        integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
+        integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
+        crossorigin="anonymous"></script>
+</body>
+</html>

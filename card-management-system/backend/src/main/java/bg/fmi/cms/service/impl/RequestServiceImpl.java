@@ -1,7 +1,9 @@
 package bg.fmi.cms.service.impl;
 
 import bg.fmi.cms.model.Request;
+import bg.fmi.cms.model.constats.CardStatus;
 import bg.fmi.cms.model.constats.RequestStatus;
+import bg.fmi.cms.model.constats.RequestType;
 import bg.fmi.cms.repo.RequestRepository;
 import bg.fmi.cms.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +43,18 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void add(Request request) {
-        requestRepository.save(request);
+    public void addNewCardRequest(Request request) {
+        request.setRequestStatus(RequestStatus.PENDING);
+        request.setRequestType(RequestType.CREATE);
+
+        request.getRequestSubject().setCardStatus(CardStatus.ACTIVE);
+//        requestRepository.save(request);
+    }
+
+    @Override
+    public void addRevokeRequest(Request request) {
+        request.setRequestStatus(RequestStatus.PENDING);
+        request.setRequestType(RequestType.REVOKE);
     }
 
     @Override

@@ -37,17 +37,4 @@ public class RequestController {
         requestService.changeRequestStatus(request.getId(), filterStatus);
         return "requests";
     }
-
-    @GetMapping(value = "/requests/new")
-    public String newRequest(Model model) {
-        model.addAttribute("request", new Request());
-        return "request-form";
-    }
-
-    @PostMapping(value = "/requests/new")
-    public String createNewRequest(Model model, @ModelAttribute Request request) {
-//        model.addAttribute("request", new Request());
-        return "request-form";
-    }
-
 }
