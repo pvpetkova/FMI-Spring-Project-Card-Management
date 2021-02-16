@@ -8,10 +8,9 @@ import bg.fmi.cms.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/card-prod")
@@ -43,7 +42,9 @@ public class CardController {
 
     @GetMapping("/revoke")
     public String revokeCardRequest(Model model) {
-        model.addAttribute("request", new Request());
+        Request request = new Request();
+        request.setRequestSubject(new Card());
+        model.addAttribute("request", request);
         return "revoke-request-form";
     }
 
@@ -53,5 +54,31 @@ public class CardController {
         request.setRequestSubject(card);
         requestService.addRevokeRequest(request);
         return "greeting";
+    }
+
+    @GetMapping("/cards")
+    public String getAllCards(Model model) {
+        model.addAttribute("cardsList", cardService.getClearCardDetails());
+        return "cards";
+    }
+
+    @GetMapping("/cards/{pan}")
+    public String getCard(Model model, @PathVariable String pan) {
+        model.addAttribute("card", cardService.getByClearPan(pan));
+        return "card-detail";
+    }
+
+    @PutMapping("/cards/{id}/status")
+    public ModelAndView changeCardStatus(ModelMap model, @PathVariable Long id, @ModelAttribute Card card) {
+        cardService.updateCardStatus(id, card.getCardStatus());
+        model.addAttribute("cardsList", cardService.getClearCardDetails());
+        return new ModelAndView("redirect:/card-prod/cards", model);
+    }
+
+    @PutMapping("/cards/{id}/update-pin")
+    public ModelAndView updateCardPin(ModelMap model, @PathVariable Long id, @ModelAttribute Card card) {
+        cardService.changePin(id, card.getPinBlock());
+        model.addAttribute("cardsList", cardService.getClearCardDetails());
+        return new ModelAndView("redirect:/card-prod/cards", model);
     }
 }

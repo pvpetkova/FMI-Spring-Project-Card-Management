@@ -13,6 +13,7 @@ import bg.fmi.cms.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,10 +73,22 @@ public class CardServiceImpl implements CardService {
         SymmetricKey cardPinKey = keyRepository.findSymmetricKeyByBinAndKeyUsage(card.getBin(), KeyUsage.CARD_PIN_KEY);
         card.setCvv(CipherUtils.pinBlock(cardPinKey.getKeyValue(), pad(card.getCvv()), card.getPan()));
         card.setPinBlock(CipherUtils.pinBlock(cardPinKey.getKeyValue(), card.getPinBlock(), card.getPan()));
-        card.setPinBlock(CipherUtils.encryptPan(card.getPan(), cardEncKey.getKeyValue()));
+        card.setPan(CipherUtils.encryptPan(card.getPan(), cardEncKey.getKeyValue()));
         card.setCardStatus(CardStatus.PENDING);
         card.setExpiryDate(card.getExpiryDate());
         return card;
+    }
+
+    @Override
+    public List<Card> getAll() {
+        // TODO fix retrieval of pins
+        return (List<Card>) cardRepository.findAll();
+    }
+
+    public List<Card> getClearCardDetails() {
+        Iterable<Card> all = cardRepository.findAll();
+        all.forEach(c -> c.setPan(CipherUtils.getClearPan(c.getPan(), keyRepository.findSymmetricKeyByBinAndKeyUsage(c.getBin(), KeyUsage.CARD_PAN_KEY).getKeyValue())));
+        return (List<Card>) all;
     }
 
     private String pad(String cvv) {

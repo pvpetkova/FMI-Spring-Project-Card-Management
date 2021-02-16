@@ -2,7 +2,8 @@ package bg.fmi.cms.service;
 
 import bg.fmi.cms.model.Card;
 import bg.fmi.cms.model.constats.CardStatus;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 public interface CardService {
     void updateCardStatus(Long cardId, CardStatus status);
@@ -16,4 +17,8 @@ public interface CardService {
     Card getByClearPan(String pan);
 
     Card addCard(Card card);
+
+    List<Card> getAll();
+
+    List<Card> getClearCardDetails();
 }

@@ -51,9 +51,13 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/keys}">Key Management</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/card-prod/cards}">Cards</a>
+                    </li>
                 </ul>
                 <span sec:authorize="isAuthenticated()">
-                <span style="margin-left: 10px" class="navbar-text" sec:authentication="principal.username"></span>
+                <span style="margin-left: 10px"><a th:href="@{/users/settings}" class="navbar-text"
+                                                   sec:authentication="principal.username"/></span>
                 <span style="margin-left: 10px" class="navbar-text">  Role: </span>
                 <span style="margin-left: 10px" class="navbar-text" sec:authentication="principal.user.role"></span>
                 </span>

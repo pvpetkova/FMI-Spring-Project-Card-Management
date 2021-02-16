@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CMS - Active Requests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+<header th:insert="fragments/general.html :: header"></header>
+<main class="container">
+    <div class="bg-light p-5 rounded mt-5 m-auto" style="max-width: 950px;">
+        <h3 class="mb-4">Cards</h3>
+        <div th:if="${cardsList!=null and !cardsList.isEmpty()}">
+            <table class="table">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Pan</th>
+                    <th scope="col">Cardholder Name</th>
+                    <th scope="col">Pin Block</th>
+                    <th scope="col">CVV</th>
+                    <th scope="col">Expiry Date</th>
+                    <th scope="col">Card Status</th>
+                    <th scope="col">Bin</th>
+                    <th scope="col">Action</th>
+                </tr>
+                <tr th:each="card: ${cardsList}">
+                    <td th:text="${card.id}"></td>
+                    <td th:text="${card.pan}"></td>
+                    <td th:text="${card.cardHolderName}"></td>
+                    <td th:text="${card.pinBlock}"></td>
+                    <td th:text="${card.cvv}"></td>
+                    <td th:text="${card.expiryDate}"></td>
+                    <td th:text="${card.cardStatus}"></td>
+                    <td th:text="${card.bin.bin}"></td>
+                    <!--TODO: add check for role-->
+                    <td>
+                        <a th:href="@{'/card-prod/cards/' + ${card.pan}}">Edit</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${cardsList==null or cardsList.isEmpty()}">
+            <p>There are no requests in the database.</p>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
+        integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
+        integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
+        crossorigin="anonymous"></script>
+</body>
+</html>

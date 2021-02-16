@@ -8,50 +8,54 @@
 </head>
 <body>
 <header th:insert="fragments/general.html :: header"></header>
+<main class="container">
+    <div class="bg-light p-5 rounded mt-5 m-auto" style="max-width: 770px;">
+        <h3 class="mb-4">Requests</h3>
 
-<h3>Requests</h3>
+        <form th:action="@{/requests/filter}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="status">Request Status: </label>
+                <select id="status" class="form-select" required th:name="filterStatus">
+                    <option th:each="stat : ${T(bg.fmi.cms.model.constats.RequestStatus).values()}"
+                            th:value="${stat}" th:text="${stat}"></option>
+                </select>
+            </div>
 
-<form th:action="@{/requests/filter}" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="status">Request Status: </label>
-        <select id="status" required th:name="filterStatus">
-            <option th:each="stat : ${T(bg.fmi.cms.model.constats.RequestStatus).values()}"
-                    th:value="${stat}" th:text="${stat}"></option>
-        </select>
+            <button class="btn btn-primary" type="submit" th:disabled="${requestsList==null or requestsList.isEmpty()}">
+                Filter
+            </button>
+        </form>
+
+        <div th:if="${requestsList!=null and !requestsList.isEmpty()}">
+            <table class="table">
+                <tr>
+                    <th scope="col">Request ID</th>
+                    <th scope="col">Issuer ID</th>
+                    <th scope="col">Request Type</th>
+                    <th scope="col">Request Status</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Card ID</th>
+                    <th scope="col">Action</th>
+                </tr>
+                <tr th:each="req: ${requestsList}">
+                    <td th:text="${req.id}"></td>
+                    <td th:text="${req.issuer.id}"></td>
+                    <td th:text="${req.requestType}"></td>
+                    <td th:text="${req.requestStatus}"></td>
+                    <td th:text="${req.reason}"></td>
+                    <td th:text="${req.requestSubject.id}"></td>
+                    <!--TODO: add check for role-->
+                    <td>
+                        <button class="btn btn-primary">Change</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${requestsList==null or requestsList.isEmpty()}">
+            <p>There are no requests in the database.</p>
+        </div>
     </div>
-
-    <button class="btn btn-primary" type="submit" th:disabled="${requestsList==null or requestsList.isEmpty()}">Filter
-    </button>
-</form>
-
-<div th:if="${requestsList!=null and !requestsList.isEmpty()}">
-    <table class="table">
-        <tr>
-            <th scope="col">Request ID</th>
-            <th scope="col">Issuer ID</th>
-            <th scope="col">Request Type</th>
-            <th scope="col">Request Status</th>
-            <th scope="col">Reason</th>
-            <th scope="col">Card ID</th>
-            <th scope="col">Action</th>
-        </tr>
-        <tr th:each="req: ${requestsList}">
-            <td th:text="${req.id}"></td>
-            <td th:text="${req.issuer.id}"></td>
-            <td th:text="${req.requestType}"></td>
-            <td th:text="${req.requestStatus}"></td>
-            <td th:text="${req.reason}"></td>
-            <td th:text="${req.requestSubject.id}"></td>
-            <!--TODO: add check for role-->
-            <td>
-                <button class="btn btn-primary">Change</button>
-            </td>
-        </tr>
-    </table>
-</div>
-<div th:if="${requestsList==null or requestsList.isEmpty()}">
-    <p>There are no requests in the database.</p>
-</div>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
         integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
