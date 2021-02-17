@@ -2,6 +2,7 @@ package bg.fmi.cms.controller;
 
 import bg.fmi.cms.model.Card;
 import bg.fmi.cms.model.Request;
+import bg.fmi.cms.model.constats.CardStatus;
 import bg.fmi.cms.service.BinService;
 import bg.fmi.cms.service.CardService;
 import bg.fmi.cms.service.RequestService;
@@ -59,6 +60,13 @@ public class CardController {
     @GetMapping("/cards")
     public String getAllCards(Model model) {
         model.addAttribute("cardsList", cardService.getClearCardDetails());
+        return "cards";
+    }
+
+    @PostMapping("/cards/filter")
+    public String getFilteredCards(Model model, @RequestParam String binFilter, @RequestParam String statusFilter) {
+        model.addAttribute("cardsList", cardService.getFilteredClearCardDetails(
+                binFilter, CardStatus.valueOf(statusFilter)));
         return "cards";
     }
 

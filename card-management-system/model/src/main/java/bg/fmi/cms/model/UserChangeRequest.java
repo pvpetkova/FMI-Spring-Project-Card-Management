@@ -17,9 +17,6 @@ public class UserChangeRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Basic
-    @Column(name = "user_id")
-    private long userId;
     @Enumerated(EnumType.ORDINAL)
     private Role requestedRole;
     @Enumerated(EnumType.ORDINAL)

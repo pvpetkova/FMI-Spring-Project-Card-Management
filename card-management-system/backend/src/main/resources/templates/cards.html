@@ -11,6 +11,23 @@
 <main class="container">
     <div class="bg-light p-5 rounded mt-5 m-auto" style="max-width: 950px;">
         <h3 class="mb-4">Cards</h3>
+        <form th:action="@{/card-prod/cards/filter}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="status">Status: </label>
+                <select id="status" class="form-select" required th:name="statusFilter">
+                    <option th:each="stat : ${T(bg.fmi.cms.model.constats.CardStatus).values()}"
+                            th:value="${stat}" th:text="${stat}"></option>
+                </select>
+
+                <label for="bin">Bin: </label>
+                <input id="bin" class="form-control" th:name="binFilter">
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+                Filter
+            </button>
+        </form>
+
         <div th:if="${cardsList!=null and !cardsList.isEmpty()}">
             <table class="table">
                 <tr>

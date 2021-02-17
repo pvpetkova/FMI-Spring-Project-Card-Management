@@ -99,6 +99,18 @@ public class CardServiceImpl implements CardService {
         return (List<Card>) all;
     }
 
+    @Override
+    public List<Card> getFilteredClearCardDetails(String bin, CardStatus cardStatus) {
+        Long binId = null;
+        if (bin != null && !bin.trim().isEmpty()) {
+            Optional<Bin> byBin = binRepository.getByBin(bin);
+            binId = byBin.map(Bin::getId).orElse(null);
+        }
+        List<Card> filteredCards = cardRepository.findAllByBinIdAndCardStatus(binId, cardStatus);
+        filteredCards.forEach(this::maskCard);
+        return filteredCards;
+    }
+
     private String pad(String cvv) {
         return "0" + cvv;
     }

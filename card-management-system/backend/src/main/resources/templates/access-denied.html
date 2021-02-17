@@ -1,9 +1,9 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
@@ -12,7 +12,8 @@
 <header th:insert="fragments/general.html :: header"></header>
 <main class="container">
     <div class="bg-light p-5 rounded mt-5 m-auto" style="max-width: 500px;">
-        <h3>Welcome, <span sec:authentication="principal.username"></span>!</h3>
+        <h3>Access denied</h3>
+        <p>You do not have the authority required to view this page.</p>
     </div>
 </main>
 

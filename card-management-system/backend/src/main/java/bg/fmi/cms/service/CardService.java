@@ -23,4 +23,6 @@ public interface CardService {
     List<Card> getAll();
 
     List<Card> getClearCardDetails();
+
+    List<Card> getFilteredClearCardDetails(String bin, CardStatus cardStatus);
 }

@@ -25,8 +25,8 @@ public class Card {
     @Basic
     private String cvv;
     @Basic
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate expiryDate;
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private String expiryDate;
     @Enumerated(EnumType.ORDINAL)
     private CardStatus cardStatus;
 

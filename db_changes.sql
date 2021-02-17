@@ -90,3 +90,5 @@ alter table user_change_request
         foreign key (user_id) references user (id);
 
 commit;
+
+alter table card modify expiry_date date null;

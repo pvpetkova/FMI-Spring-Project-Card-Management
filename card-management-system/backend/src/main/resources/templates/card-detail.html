@@ -16,7 +16,7 @@
         <form th:action="@{'/card-prod/cards/' + ${card.id} + '/status'}" th:method="put" th:object="${card}"
               enctype="multipart/form-data">
 
-            <div class="form-group mt-2 mb-5">
+            <div class="form-group mt-2 mb-4">
                 <label for="status">New Status: </label>
                 <select id="status" name="status" class="form-select" th:field="${card.cardStatus}">
                     <option th:each="stat : ${T(bg.fmi.cms.model.constats.CardStatus).values()}"
@@ -27,12 +27,12 @@
             <button class="btn btn-primary" type="submit">Change Status</button>
         </form>
 
-        <h3>Change Pin</h3>
+        <h3 class="mt-4">Change Pin</h3>
         <form th:action="@{'/card-prod/cards/' + ${card.id} + '/update-pin'}" th:method="put" th:object="${card}"
               enctype="multipart/form-data">
 
-            <div class="form-group mt-2 mb-5">
-                <label for="status">New Status: </label>
+            <div class="form-group mt-2 mb-4">
+                <label for="status">New Pin: </label>
                 <input type="text" id="pin" name="pin" class="form-control" th:field="${card.pinBlock}"/>
             </div>
 

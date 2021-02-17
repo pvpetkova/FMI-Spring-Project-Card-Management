@@ -42,28 +42,26 @@
                 </select>
             </div>
 
-            <!--    <div th:if="${user.changeRequests != null and !user.changeRequests.isEmpty()}" class="form-group">-->
-            <!--        <table>-->
-            <!--            <tr>-->
-            <!--                <th>Id</th>-->
-            <!--                <th>Requested Role</th>-->
-            <!--                <th>Status</th>-->
-            <!--            </tr>-->
-            <!--            <tr th:each="req: ${user.changeRequests}">-->
-            <!--                <td th:text="${req.id}"></td>-->
-            <!--                <td th:text="${req.requestedRole}"></td>-->
-            <!--                <td th:text="${req.status}"></td>-->
-            <!--            </tr>-->
-            <!--        </table>-->
-            <!--    </div>-->
+            <div th:if="${user.changeRequests != null and !user.changeRequests.isEmpty()}" class="form-group mb-3">
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Requested Role</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr th:each="req: ${user.changeRequests}">
+                        <td th:text="${req.id}"></td>
+                        <td th:text="${req.requestedRole}"></td>
+                        <td th:text="${req.status}"></td>
+                    </tr>
+                </table>
+            </div>
 
             <button class="btn btn-primary" type="submit">Edit</button>
-
-            <!--    <p th:text="${message}"></p>-->
         </form>
         <form th:action="@{'/users/' + ${user.id}}" th:method="delete" th:object="${user}"
               enctype="multipart/form-data">
-            <button class="btn btn-outline-secondary" style="position: relative; top: -38px; left:60px" type="submit">
+            <button class="btn btn btn-danger" style="position: relative; top: -38px; left:60px" type="submit">
                 Delete
             </button>
         </form>

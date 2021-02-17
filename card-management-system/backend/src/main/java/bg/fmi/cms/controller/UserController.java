@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller()
 @RequestMapping("/users")
@@ -42,9 +43,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public String login(@ModelAttribute User user, Model model) {
+    public ModelAndView login(@ModelAttribute User user, Model model) {
         model.addAttribute("user", user);
-        return "greeting";
+        return new ModelAndView("greeting");
     }
 
     @PostMapping(value = "/logout")
@@ -58,7 +59,7 @@ public class UserController {
         User currentUser = userService.getCurrentUser();
         model.addAttribute("currentUser", currentUser);
         UserChangeRequest changeRequest = new UserChangeRequest();
-        changeRequest.setUserId(currentUser.getId());
+        changeRequest.setUser(currentUser);
         model.addAttribute("userChangeRequest", changeRequest);
         return "settings";
     }
@@ -72,14 +73,14 @@ public class UserController {
     @DeleteMapping(value = "/{userID}")
     public String deleteUser(Model model, @PathVariable long userID) {
         userService.delete(userID);
-        return "users";
+        return "redirect:/users";
     }
 
     @PutMapping(value = "/{userID}")
     public String editUser(Model model, @PathVariable long userID, @ModelAttribute User user) {
         user.setId(userID);
         userService.update(user);
-        return "users";
+        return "redirect:/users";
     }
 
     @PostMapping(value = "/settings")
