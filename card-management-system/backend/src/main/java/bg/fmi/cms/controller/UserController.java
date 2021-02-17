@@ -22,6 +22,12 @@ public class UserController {
         return "users";
     }
 
+    @GetMapping(value = "/register-admin")
+    public String registerAdmin(Model model) {
+        model.addAttribute("user", new User());
+        return "register-admin";
+    }
+
     @GetMapping(value = "/register")
     public String greetingForm(Model model) {
         model.addAttribute("user", new User());
@@ -34,6 +40,12 @@ public class UserController {
         model.addAttribute("message", "Your registration request has been submitted. " +
                 "It must be reviewed and approved by an administrator before you can access the system.");
         return "register";
+    }
+
+    @PostMapping(value = "/register-admin")
+    public String registerUser(@ModelAttribute User newUser) {
+        userService.addAdm(newUser);
+        return "redirect:/users";
     }
 
     @GetMapping(value = "/login")

@@ -57,6 +57,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void addAdm(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setAccountStatus(AccountStatus.ACTIVE);
+        if (userRepository == null) {
+            throw new RuntimeException("user repo is null");
+        }
+        userRepository.save(user);
+    }
+
+    @Override
     public void update(User user) {
         Optional<User> byId = userRepository.findById(user.getId());
         if (byId.isPresent()) {

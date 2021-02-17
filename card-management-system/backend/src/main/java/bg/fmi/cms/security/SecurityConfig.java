@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/settings").hasAnyAuthority()
                 .antMatchers("/users/**").hasRole(Role.ADMIN.toString())
                 .antMatchers("/card-prod").hasRole(Role.CARD_PRODUCTION.toString())
-                .antMatchers("/requests").hasRole(Role.MANAGEMENT.toString())
+                .antMatchers("/requests").hasAnyRole(Role.MANAGEMENT.toString(), Role.AUDIT.toString())
                 .antMatchers("/card").hasRole(Role.CARD_PRODUCTION.toString())
                 .antMatchers("/bins").hasRole(Role.MANAGEMENT.toString())
                 .antMatchers("/bin-range").hasRole(Role.MANAGEMENT.toString())

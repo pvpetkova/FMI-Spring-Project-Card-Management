@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row-cols-2">
                 <div class="col-8"><h3>Users Dashboard</h3></div>
-                <div class="col-3"><a th:href="@{/users/register}" class="btn btn-primary">Add new user</a></div>
+                <div class="col-3"><a th:href="@{/users/register-admin}" class="btn btn-primary">Add new user</a></div>
             </div>
         </div>
         <div th:if="${usersList!=null and !usersList.isEmpty()}">

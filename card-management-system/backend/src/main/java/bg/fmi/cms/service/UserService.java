@@ -16,6 +16,8 @@ public interface UserService {
 
     void add(User user);
 
+    void addAdm(User user);
+
     void update(User user);
 
     void addUserChangeRequest(UserChangeRequest currentUser);

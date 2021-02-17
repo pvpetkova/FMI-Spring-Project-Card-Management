@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+<header th:insert="fragments/general.html :: header"></header>
+<main class="container">
+    <div class="bg-light p-5 rounded mt-5 m-auto" style="max-width: 500px;">
+        <h3 class="mb-4">Send Registration Request</h3>
+        <form th:action="@{/users/register-admin}" method="post" th:object="${user}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="username">Username: </label>
+                <input class="form-control" id="username" name="username" required th:field="${user.username}"
+                       type="text">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password: </label>
+                <input class="form-control" id="password" name="password" required
+                       th:field="${user.password}"
+                       type="password">
+            </div>
+
+            <div class="form-group">
+                <label for="repeatPassword">Password: </label>
+                <input class="form-control" id="repeatPassword" name="repeatPassword" required
+                       th:field="${user.repeatPassword}"
+                       type="password">
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role: </label>
+                <select id="role" name="role" required class="form-select" th:field="${user.role}">
+                    <option th:each="role : ${T(bg.fmi.cms.model.constats.Role).values()}"
+                            th:value="${role}" th:text="${role}"></option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary mt-5" type="submit">Submit</button>
+        </form>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
+        integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
+        integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
+        crossorigin="anonymous"></script>
+</body>
+</html>
