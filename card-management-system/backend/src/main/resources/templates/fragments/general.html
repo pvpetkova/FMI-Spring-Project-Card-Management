@@ -21,14 +21,16 @@
                         <a class="nav-link active" th:href="@{/greeting}" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/users}">Users</a>
+                        <a class="nav-link" sec:authorize="hasRole('ADMIN')" th:href="@{/users}">Users</a>
                     </li>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    <button sec:authorize="hasRole('ADMIN') or hasRole('CARD_PRODUCTION')" class="navbar-toggler" type="button"
+                            data-bs-toggle="collapse"
                             data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                    <div sec:authorize="hasRole('ADMIN') or hasRole('CARD_PRODUCTION')" class="collapse navbar-collapse"
+                         id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
@@ -37,9 +39,12 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark"
                                     aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <li><a class="dropdown-item" th:href="@{/requests}">View Requests</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/card-prod/request}">New Card</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/card-prod/revoke}">Revoke Card</a></li>
+                                    <li><a class="dropdown-item" sec:authorize="hasRole('ADMIN')"
+                                           th:href="@{/requests}">View Requests</a></li>
+                                    <li><a class="dropdown-item" sec:authorize="hasRole('CARD_PRODUCTION')"
+                                           th:href="@{/card-prod/request}">New Card</a></li>
+                                    <li><a class="dropdown-item" sec:authorize="hasRole('CARD_PRODUCTION')"
+                                           th:href="@{/card-prod/revoke}">Revoke Card</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -49,15 +54,22 @@
                     <!--                        <a class="nav-link" th:href="@{/users/settings}">User Settings</a>-->
                     <!--                    </li>-->
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/card-prod/cards}">Cards</a>
+                        <a class="nav-link" sec:authorize="hasRole('MANAGEMENT')"
+                           th:href="@{/card-prod/cards}">Cards</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/keys}">Key Management</a>
+                        <a class="nav-link" sec:authorize="hasRole('MANAGEMENT')" th:href="@{/keys}">Key Management</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/bin-management}">Bin Management</a>
+                        <a class="nav-link" sec:authorize="hasRole('MANAGEMENT')" th:href="@{/bin-management}">Bin
+                            Management</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="hasRole('AUTHORIZATION_SYSTEM')" th:href="@{/authorize}">Authorization</a>
+                    </li>
+
                 </ul>
                 <span sec:authorize="isAuthenticated()">
                 <span style="margin-left: 10px"><a th:href="@{/users/settings}" class="navbar-text"

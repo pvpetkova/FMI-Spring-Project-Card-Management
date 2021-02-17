@@ -40,12 +40,18 @@ public class CardServiceImpl implements CardService {
     public boolean authorize(Card card, String pinBlock) {
         SymmetricKey cardPinKey = keyRepository.findSymmetricKeyByBinAndKeyUsage(card.getBin(), KeyUsage.CARD_PIN_KEY);
         SymmetricKey acPinKey = keyRepository.findSymmetricKeyByBinAndKeyUsage(card.getBin(), KeyUsage.AUTHORIZATION_PIN_KEY);
+        if (pinBlock.length() < 16) {
+            return CipherUtils.checkPinClear(card.getPinBlock(), pinBlock, card.getPan(), cardPinKey.getKeyValue());
+        }
         return CipherUtils.checkPin(card.getPinBlock(), pinBlock, acPinKey.getKeyValue(), cardPinKey.getKeyValue());
     }
 
     @Override
     public boolean authorize(String pan, String pinBlock) {
-        Card card = cardRepository.getByPan(pan).orElseThrow((() -> new RuntimeException("Pan Not Found")));
+        Card card = getByClearPan(pan);
+        if (pinBlock.length() < 16) {
+            card.setPan(pan);
+        }
         return this.authorize(card, pinBlock);
     }
 

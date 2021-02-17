@@ -6,6 +6,7 @@ import bg.fmi.cms.model.BinRange;
 import bg.fmi.cms.repo.BinRangeRepository;
 import bg.fmi.cms.repo.BinRepository;
 import bg.fmi.cms.service.BinRangeService;
+import bg.fmi.cms.service.BinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class BinRangeServiceImpl implements BinRangeService {
 
     @Autowired
     BinRepository binRepository;
+
+    @Autowired
+    BinService binService;
 
     @Override
     public void addBinRange(BinRange binRange) {
@@ -47,8 +51,10 @@ public class BinRangeServiceImpl implements BinRangeService {
 
     @Override
     public void addBinInRange(Long binRangeId, Bin bin) {
-        bin.setBinRange(binRangeRepository.findById(binRangeId).get());
-        binRepository.save(bin);
+        BinRange placeholder = new BinRange();
+        placeholder.setId(binRangeId);
+        bin.setBinRange(placeholder);
+        binService.add(bin);
     }
 
     @Override

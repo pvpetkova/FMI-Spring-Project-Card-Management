@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -30,7 +32,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setAuthoritiesMapper(authoritiesMapper());
         return authProvider;
+    }
+
+    @Bean
+    public GrantedAuthoritiesMapper authoritiesMapper() {
+        SimpleAuthorityMapper mapper = new SimpleAuthorityMapper();
+        mapper.setPrefix("ROLE_"); // this line is not required
+        mapper.setConvertToUpperCase(true); // convert your roles to uppercase
+        mapper.setDefaultAuthority("USER"); // set a default role
+
+        return mapper;
     }
 
     @Override
@@ -47,13 +60,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index").permitAll()
                 .antMatchers("/users/register").permitAll()
                 .antMatchers("/users/settings").hasAnyAuthority()
-                .antMatchers("/users/**").hasAuthority(Role.ADMIN.toString())
-                .antMatchers("/card-prod").hasAuthority(Role.CARD_PRODUCTION.toString())
-                .antMatchers("/requests").hasAuthority(Role.MANAGEMENT.toString())
-                .antMatchers("/card").hasAuthority(Role.CARD_PRODUCTION.toString())
-                .antMatchers("/bins").hasAuthority(Role.MANAGEMENT.toString())
-                .antMatchers("/bin-range").hasAuthority(Role.MANAGEMENT.toString())
-                .antMatchers("/authorize").hasAuthority(Role.AUTHORIZATION_SYSTEM.toString())
+                .antMatchers("/users/**").hasRole(Role.ADMIN.toString())
+                .antMatchers("/card-prod").hasRole(Role.CARD_PRODUCTION.toString())
+                .antMatchers("/requests").hasRole(Role.MANAGEMENT.toString())
+                .antMatchers("/card").hasRole(Role.CARD_PRODUCTION.toString())
+                .antMatchers("/bins").hasRole(Role.MANAGEMENT.toString())
+                .antMatchers("/bin-range").hasRole(Role.MANAGEMENT.toString())
+                .antMatchers("/keys").hasRole(Role.MANAGEMENT.toString())
+                .antMatchers("/authorize").hasRole(Role.AUTHORIZATION_SYSTEM.toString())
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied")

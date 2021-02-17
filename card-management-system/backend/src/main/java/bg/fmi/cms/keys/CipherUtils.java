@@ -52,6 +52,11 @@ public class CipherUtils {
         return clearPin(cardPin, cardKey).equals(clearPin(authSystemPin, authSystemKey));
     }
 
+    public static boolean checkPinClear(String cardPin, String authSystemPin, String pan, String cardKey) {
+        String s = pinBlock(cardKey, authSystemPin, pan);
+        return s.equals(cardPin);
+    }
+
     private static String clearPin(String pinBlock, String key) {
         SecretKeySpec tDesKey = stringToDes3(key);
         Cipher cipher = null;

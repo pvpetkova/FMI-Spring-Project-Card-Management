@@ -23,16 +23,15 @@ public class BinServiceImpl implements BinService {
     @Autowired
     private KeyRepository keyRepository;
 
-    @Autowired
-    private CardRepository cardRepository;
 
     @Override
     public void add(Bin bin) {
         List<SymmetricKey> keys = new LinkedList<>();
-        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.CARD_PIN_KEY, bin));
-        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.CARD_PAN_KEY, bin));
-        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.AUTHORIZATION_PIN_KEY, bin));
-        binRepository.save(bin);
+        Bin saved = binRepository.save(bin);
+        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.CARD_PIN_KEY, saved));
+        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.CARD_PAN_KEY, saved));
+        keys.add(KeyGenerator.generateDesEDEKey(KeyUsage.AUTHORIZATION_PIN_KEY, saved));
+
         keyRepository.saveAll(keys);
     }
 
