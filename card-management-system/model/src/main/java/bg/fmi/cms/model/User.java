@@ -2,16 +2,17 @@ package bg.fmi.cms.model;
 
 import bg.fmi.cms.model.constats.AccountStatus;
 import bg.fmi.cms.model.constats.Role;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode(exclude = "changeRequests")
+@ToString(exclude = "changeRequests")
 @Table(name = "user", schema = "cms")
 public class User {
     @Id
@@ -34,5 +35,7 @@ public class User {
     @Column(name = "account_status")
     @Enumerated(EnumType.ORDINAL)
     private AccountStatus accountStatus;
-//    private List<UserChangeRequest> changeRequests;
+    @OneToMany
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private List<UserChangeRequest> changeRequests;
 }
