@@ -67,7 +67,7 @@
         </form>
         <form th:action="@{'/keys/' + ${symKey.id}}" th:method="delete" th:object="${symKey}"
               enctype="multipart/form-data">
-            <button class="btn btn-outline-secondary" style="position: relative; top: -38px; left:60px" type="submit">
+            <button class="btn btn-danger" style="position: relative; top: -38px; left:60px" type="submit">
                 Delete
             </button>
         </form>

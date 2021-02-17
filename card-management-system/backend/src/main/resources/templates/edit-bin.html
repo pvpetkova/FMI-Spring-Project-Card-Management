@@ -10,61 +10,64 @@
 <body>
 <header th:insert="fragments/general.html :: header"></header>
 <main class="container">
-    <div th:if="${binRange!=null}" th:hidden="${binRange==null}">
-        <form th:action="@{'/bin-management'}" th:method="post"
-              enctype="multipart/form-data"
-              th:object="${binRange}">
-            <div class="form-group mt-2">
-                <label for="sBin">Starting Bin: </label>
-                <input class="form-control" id="sBin" name="sBin"
-                       th:field="${binRange.startingBin}"
-                       type="text">
-            </div>
-            <div class="form-group mt-2">
-                <label for="endBin">End Bin: </label>
-                <input class="form-control" id="endBin" name="endBin"
-                       th:field="${binRange.endBin}"
-                       type="text">
-            </div>
-            <div class="form-group mt-2">
-                <label for="description">Description: </label>
-                <input class="form-control" id="description" name="description" required
-                       th:field="${binRange.description}"
-                       type="text">
-            </div>
-            <div class="form-group mt-2">
-                <button class="btn btn-primary" type="submit">Save</button>
-            </div>
-        </form>
-        <a class="btn btn-outline-secondary" style="position: relative; top: -38px; left:60px" type="button"
-                th:href="@{'/bin-management'}">
-            Cancel
-        </a>
-    </div>
-    <div th:if="${bin!=null}" th:hidden="${bin==null}">
-        <form th:action="@{'/bin-management/'+ ${rangeId} + '/bins'}" th:method="post"
-              enctype="multipart/form-data"
-              th:object="${bin}">
-            <div class="form-group mt-2">
-                <label for="Bin">Bin: </label>
-                <input class="form-control" id="Bin" name="Bin"
-                       th:field="${bin.bin}"
-                       type="text">
-            </div>
-            <div class="form-group mt-2">
-                <label for="description1">Description: </label>
-                <input class="form-control" id="description1" name="description1" required
-                       th:field="${bin.description}"
-                       type="text">
-            </div>
-            <div class="form-group mt-2">
-                <button class="btn btn-primary" type="submit">Save</button>
-            </div>
-        </form>
-        <a class="btn btn-outline-secondary" style="position: relative; top: -38px; left:60px" type="button"
-                th:href="@{'/bin-management/'+ ${rangeId} + '/bins'}">
-            Cancel
-        </a>
+    <div class="bg-light p-5 rounded mt-5 m-auto"
+         style="max-width: 500px;">
+        <div th:if="${binRange!=null}" th:hidden="${binRange==null}">
+            <form th:action="@{'/bin-management'}" th:method="post"
+                  enctype="multipart/form-data"
+                  th:object="${binRange}">
+                <div class="form-group mt-2">
+                    <label for="sBin">Starting Bin: </label>
+                    <input class="form-control" id="sBin" name="sBin"
+                           th:field="${binRange.startingBin}"
+                           type="text">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="endBin">End Bin: </label>
+                    <input class="form-control" id="endBin" name="endBin"
+                           th:field="${binRange.endBin}"
+                           type="text">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="description">Description: </label>
+                    <input class="form-control" id="description" name="description" required
+                           th:field="${binRange.description}"
+                           type="text">
+                </div>
+                <div class="form-group mt-2">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </form>
+            <a class="btn btn-outline-secondary" style="position: relative; top: -38px; left:60px" type="button"
+               th:href="@{'/bin-management'}">
+                Cancel
+            </a>
+        </div>
+        <div th:if="${bin!=null}" th:hidden="${bin==null}">
+            <form th:action="@{'/bin-management/'+ ${rangeId} + '/bins'}" th:method="post"
+                  enctype="multipart/form-data"
+                  th:object="${bin}">
+                <div class="form-group mt-2">
+                    <label for="Bin">Bin: </label>
+                    <input class="form-control" id="Bin" name="Bin"
+                           th:field="${bin.bin}"
+                           type="text">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="description1">Description: </label>
+                    <input class="form-control" id="description1" name="description1" required
+                           th:field="${bin.description}"
+                           type="text">
+                </div>
+                <div class="form-group mt-2">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </form>
+            <a class="btn btn-outline-secondary" style="position: relative; top: -38px; left:60px" type="button"
+               th:href="@{'/bin-management/'+ ${rangeId} + '/bins'}">
+                Cancel
+            </a>
+        </div>
     </div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
