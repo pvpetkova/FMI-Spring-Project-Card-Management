@@ -37,8 +37,10 @@ public class BinManagementController {
         return "redirect:bin-management";
     }
 
-    @DeleteMapping("")
-    public String deleteBinRange(BinRange binRange) {
+    @DeleteMapping("{id}")
+    public String deleteBinRange(Long id) {
+        BinRange binRange = new BinRange();
+        binRange.setId(id);
         binRangeService.removeBinRange(binRange);
         return "redirect:bin-management";
     }
