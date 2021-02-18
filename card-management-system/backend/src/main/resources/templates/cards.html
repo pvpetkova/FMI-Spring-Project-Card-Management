@@ -50,7 +50,6 @@
                     <td th:text="${card.expiryDate}"></td>
                     <td th:text="${card.cardStatus}"></td>
                     <td th:text="${card.bin.bin}"></td>
-                    <!--TODO: add check for role-->
                     <td>
                         <a th:href="@{'/card-prod/cards/' + ${card.id}}">Edit</a>
                     </td>

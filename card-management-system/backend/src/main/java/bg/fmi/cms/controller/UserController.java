@@ -67,7 +67,6 @@ public class UserController {
 
     @GetMapping(value = "/settings")
     public String getUserSettings(Model model) {
-        // TODO bind current user
         User currentUser = userService.getCurrentUser();
         model.addAttribute("currentUser", currentUser);
         UserChangeRequest changeRequest = new UserChangeRequest();
@@ -97,9 +96,7 @@ public class UserController {
 
     @PostMapping(value = "/settings")
     public String changeUserSettings(@ModelAttribute UserChangeRequest userChangeRequest, Model model) {
-        // TODO add user change request
         userService.addUserChangeRequest(userChangeRequest);
-        // return original user
         model.addAttribute("currentUser", userService.getCurrentUser());
         return "settings";
     }

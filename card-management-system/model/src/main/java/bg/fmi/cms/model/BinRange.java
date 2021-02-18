@@ -10,8 +10,6 @@ import java.util.Collection;
 @Table(name = "bin_range", schema = "cms")
 public class BinRange {
     @Id
-//    @SequenceGenerator(name = "seq_bin_range_id", sequenceName = "seq_bin_range_id",allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_bin_range_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Basic

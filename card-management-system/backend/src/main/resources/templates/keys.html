@@ -15,7 +15,6 @@
             <div class="row-cols-2">
                 <div class="col-8"><h3>Key Management </h3></div>
                 <div class="col-3"><a th:href="@{/keys/new}" class="btn btn-primary">Add new key</a></div>
-                <!--                @{/users/register}-->
             </div>
         </div>
         <div th:if="${symmetricKeyList!=null and !symmetricKeyList.isEmpty()}">
@@ -36,7 +35,6 @@
                     <td th:text="${symmetricKey.keyUsage}"></td>
                     <td th:text="${symmetricKey.keyType}"></td>
                     <td th:text="${symmetricKey.bin.bin}"></td>
-                    <!--TODO: add check for role-->
                     <td>
                         <a th:href="@{'/keys/' + ${symmetricKey.id}}">Change</a>
                     </td>

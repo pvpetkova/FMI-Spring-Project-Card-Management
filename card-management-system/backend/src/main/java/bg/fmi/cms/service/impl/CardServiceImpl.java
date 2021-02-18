@@ -95,7 +95,6 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<Card> getAll() {
-        // TODO fix retrieval of pins
         return (List<Card>) cardRepository.findAll();
     }
 

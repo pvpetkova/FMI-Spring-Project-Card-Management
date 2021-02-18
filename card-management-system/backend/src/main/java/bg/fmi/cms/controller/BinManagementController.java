@@ -38,7 +38,7 @@ public class BinManagementController {
     }
 
     @DeleteMapping("{id}")
-    public String deleteBinRange(Long id) {
+    public String deleteBinRange(@PathVariable("id") Long id) {
         BinRange binRange = new BinRange();
         binRange.setId(id);
         binRangeService.removeBinRange(binRange);

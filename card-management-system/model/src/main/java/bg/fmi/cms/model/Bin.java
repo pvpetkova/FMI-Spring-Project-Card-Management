@@ -14,8 +14,6 @@ import java.util.List;
 @Table(name = "bin", schema = "cms")
 public class Bin {
     @Id
-//    @SequenceGenerator(name = "seq_bin_id", sequenceName = "seq_bin_id", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_bin_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Basic

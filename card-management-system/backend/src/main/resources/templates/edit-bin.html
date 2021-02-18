@@ -12,6 +12,7 @@
 <main class="container">
     <div class="bg-light p-5 rounded mt-5 m-auto"
          style="max-width: 500px;">
+        <h3>Edit Bin Details</h3>
         <div th:if="${binRange!=null}" th:hidden="${binRange==null}">
             <form th:action="@{'/bin-management'}" th:method="post"
                   enctype="multipart/form-data"

@@ -34,7 +34,6 @@
                     <td th:text="${binRange.startingBin}"></td>
                     <td th:text="${binRange.endBin}"></td>
                     <td th:text="${binRange.description}"></td>
-                    <!--TODO: add check for role-->
                     <td>
                         <form th:action="@{'/bin-management/' + ${binRange.id}}"
                               th:method="delete">

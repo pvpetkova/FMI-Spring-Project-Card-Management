@@ -42,7 +42,6 @@
                     <td th:text="${bin.id}"></td>
                     <td th:text="${bin.bin}"></td>
                     <td th:text="${bin.description}"></td>
-                    <!--TODO: add check for role-->
                     <td>
                         <form th:action="@{'/bin-management/' + ${binRange.id} + '/bins/' + ${bin.id}}"
                               th:method="delete" th:object="${bin}">

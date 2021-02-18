@@ -1,5 +1,3 @@
 include 'model'
-include 'view'
-include 'controller'
 include 'backend'
 

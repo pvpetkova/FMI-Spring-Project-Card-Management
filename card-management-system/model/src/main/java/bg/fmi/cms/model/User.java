@@ -16,8 +16,6 @@ import java.util.List;
 @Table(name = "user", schema = "cms")
 public class User {
     @Id
-//    @SequenceGenerator(name = "seq_user_id", sequenceName = "seq_user_id",allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
